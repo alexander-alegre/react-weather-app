@@ -24940,25 +24940,41 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      location: 'Miami',
-	      temp: 88
+	      isLoading: false
 	    };
 	  },
 	  handleSearch: function handleSearch(location) {
 	    var that = this;
+	    this.setState({ isLoading: true });
 	    openWeatherMap.getTemp(location).then(function (temp) {
 	      that.setState({
 	        location: location,
-	        temp: temp
+	        temp: temp,
+	        isLoading: false
 	      });
 	    }, function (errorMessage) {
+	      that.setState({ isLoading: false });
 	      alert(errorMessage);
 	    });
 	  },
 	  render: function render() {
 	    var _state = this.state,
+	        isLoading = _state.isLoading,
 	        temp = _state.temp,
 	        location = _state.location;
+
+
+	    function renderMessage() {
+	      if (isLoading) {
+	        return React.createElement(
+	          'h3',
+	          null,
+	          'Fetching weather...'
+	        );
+	      } else if (temp && location) {
+	        return React.createElement(WeatherMessage, { temp: temp, location: location });
+	      }
+	    }
 
 	    return React.createElement(
 	      'div',
@@ -24969,12 +24985,15 @@
 	        'Get Weather'
 	      ),
 	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
-	      React.createElement(WeatherMessage, { temp: temp, location: location })
+	      renderMessage()
 	    );
 	  }
 	});
 
 	module.exports = Weather;
+
+	// inline-source-map
+	// eval-source-map
 
 /***/ }),
 /* 219 */
@@ -25067,12 +25086,12 @@
 
 	    return axios.get(requestUrl).then(function (res) {
 	      if (res.data.cod && res.data.message) {
-	        throw new Error('res.data.message');
+	        throw new Error(res.data.message);
 	      } else {
 	        return res.data.main.temp;
 	      }
 	    }, function (res) {
-	      throw new Error('res.data.message');
+	      throw new Error(res.data.message);
 	    });
 	  }
 	};
@@ -26176,21 +26195,27 @@
 
 	var React = __webpack_require__(1);
 
-	var About = React.createClass({
-	  displayName: 'About',
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h3',
-	        null,
-	        'about'
-	      )
-	    );
+	/*let About = React.createClass({
+	  render: function () {
+	    return (
+	      <div>
+	        <h3>about</h3>
+	      </div>
+	    )
 	  }
-	});
+	});*/
+
+	var About = function About(props) {
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'h3',
+	      null,
+	      'about'
+	    )
+	  );
+	};
 
 	module.exports = About;
 
