@@ -2,7 +2,7 @@ let express = require('express');
 // make app
 let app = express();
 // public folder
-ap.use((req, res, next) => {
+app.use((req, res, next) => {
     if (req.headers['x-forwarded-proto'] === 'http') {
         next();
     } else {
