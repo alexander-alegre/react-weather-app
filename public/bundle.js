@@ -24927,11 +24927,14 @@
 	      null,
 	      React.createElement(Nav, null),
 	      React.createElement(
-	        'h2',
-	        null,
-	        'Main Component'
-	      ),
-	      this.props.children
+	        'div',
+	        { className: 'row' },
+	        React.createElement(
+	          'div',
+	          { className: 'columns medium-6 large-4 small-centered' },
+	          this.props.children
+	        )
+	      )
 	    );
 	  }
 	});
@@ -24953,29 +24956,75 @@
 	var Nav = React.createClass({
 	  displayName: 'Nav',
 
+	  onSearch: function onSearch(e) {
+	    e.preventDefault();
+	    alert('not yet wired up');
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'top-bar' },
 	      React.createElement(
-	        'h3',
-	        null,
-	        'Weather App'
+	        'div',
+	        { className: 'top-bar-left' },
+	        React.createElement(
+	          'ul',
+	          { className: 'menu' },
+	          React.createElement(
+	            'li',
+	            { className: 'menu-text' },
+	            'React Weather App'
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              IndexLink,
+	              { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	              'Get Weather'
+	            )
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              IndexLink,
+	              { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	              'About'
+	            )
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              IndexLink,
+	              { to: '/examples', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	              'Examples'
+	            )
+	          )
+	        )
 	      ),
 	      React.createElement(
-	        IndexLink,
-	        { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold', color: 'red' } },
-	        'Get Weather'
-	      ),
-	      React.createElement(
-	        IndexLink,
-	        { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'bold', color: 'red' } },
-	        'About'
-	      ),
-	      React.createElement(
-	        IndexLink,
-	        { to: '/examples', activeClassName: 'active', activeStyle: { fontWeight: 'bold', color: 'red' } },
-	        'Examples'
+	        'div',
+	        { className: 'top-bar-right' },
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.onSearch },
+	          React.createElement(
+	            'ul',
+	            { className: 'menu' },
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement('input', { type: 'search', placeholder: 'Search' })
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement('input', { type: 'submit', className: 'button', value: 'Get Weather' })
+	            )
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -26286,6 +26335,9 @@
 
 	var React = __webpack_require__(8);
 
+	var _require = __webpack_require__(166),
+	    Link = _require.Link;
+
 	var Examples = React.createClass({
 	  displayName: 'Examples',
 
@@ -26294,9 +26346,36 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'h3',
-	        null,
+	        'h1',
+	        { className: 'text-center' },
 	        'Examples'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'Here are a few example locations to try out'
+	      ),
+	      React.createElement(
+	        'ol',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/?location=Phoenix' },
+	            'Phoenix, AZ'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/?location=London' },
+	            'London, UK'
+	          )
+	        )
 	      )
 	    );
 	  }
